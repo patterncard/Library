@@ -11,32 +11,33 @@ using namespace std;
 class Book
 {
 public:
-    string author;
+    string authorName;
+    string authorSurname;
     string title;
     int amount;
 
-    string setAuthor(string auth)
+    void setAuthorName(string name)
     {
-        return author = auth;
+        authorName = name;
     }
-    string setTitle(string tit)
+    void setAuthorSurname(string surname)
     {
-        return title = tit;
+        authorSurname = surname;
     }
-    void displayName()
+    void setTitle(string tit)
     {
-        cout << author << ", " << title << endl;
+        title = tit;
     }
-    int setAmount(int amou)
+    void setAmount(int amou)
     {
-        if (amou = 0)
-            cout << "You must enter valid number" << endl;
+        if (amou == 0)
+        {
+            cout << "You must enter a valid number" << endl;
+        }
         else
         {
-            return amount = amou;
+            amount = amou;
         }
-
-        return amount = amou;
     }
     void getAmout()
     {
@@ -51,6 +52,19 @@ public:
     }
 };
 
+class Library : public Book
+{
+public:
+    void addingBooks(Book newBook)
+    {
+        vector<Book> shelf;
+        shelf.push_back(newBook);
+    }
+    void sorting()
+    {
+    }
+};
+
 void print(const string &item)
 {
     cout << item << endl;
@@ -58,50 +72,67 @@ void print(const string &item)
 
 int main()
 {
-    cout << "List of Books:" << endl;
-    Book Book1;
-    string aut1 = "Tom Clancy";
-    Book1.setAuthor(aut1);
-    Book1.author = "";
-    string tit1 = "\"Patriot Games\"";
-    Book1.setTitle(tit1);
-    Book1.displayName();
-    Book1.setAmount(1);
+    bool run = 1;
+    while (run != 0)
+    {
+        Book newBook;
+        Library Lib;
+        cout << "Choose option from menu:" << endl;
+        cout << "1. Add book to database" << endl;
+        cout << "2. Store book in library" << endl;
 
-    Book Book2;
-    string aut2 = "Auel Jean";
-    Book2.setAuthor(aut2);
-    string tit2 = "\"Earth's Children\"";
-    Book2.setTitle(tit2);
-    Book2.displayName();
-    Book2.setAmount(2);
+        int menuChoice;
+        cin >> menuChoice;
+        switch (menuChoice)
+        {
+        case 1:
+        {
+            string name;
+            cout << "Enter author's name: " << endl;
+            cin >> name;
+            newBook.setAuthorName(name);
+            cout << "Author name is: " << newBook.authorName << endl;
 
-    Book Book3;
-    string aut3 = "Clarke Arthur";
-    Book3.setAuthor(aut3);
-    string tit3 = "\"3001 The final odissey\"";
-    Book3.setTitle(tit3);
-    Book3.displayName();
-    Book3.setAmount(1);
+            string surname;
+            cout << "Enter author's surname:" << endl;
+            cin >> surname;
+            newBook.setAuthorSurname(surname);
+            cout << "Author's surname is: " << newBook.authorSurname << endl;
 
-    Book Books;
-    Books = Book1 + Book2;
-    Book AllBooks;
-    AllBooks = Books + Book3;
-    cout << "\nNumber of books in stock: " << AllBooks.amount << endl;
+            string title;
+            cout << "Enter title of book: " << endl;
+            cin >> title;
+            newBook.setTitle(title);
+            cout << "Title is \"" << newBook.title << "\"" << endl;
 
-    cout << "\nAlphabetical sorting by author:" << endl;
-    set<string> sortedBooks;
-    sortedBooks.insert(Book1.author);
-    sortedBooks.insert(Book2.author);
-    sortedBooks.insert(Book3.author);
+            int amount;
+            cout << "Enter the number of copies of books:" << endl;
+            cin >> amount;
+            newBook.setAmount(amount);
+            cout << "Number of copies: " << newBook.amount << endl;
+        }
+        break;
+        case 2:
+        {
+            cout << "Adding a book..." << endl;
+            vector<Book> lib;
+            Lib.addingBooks(newBook);
+            cout << "Book has been added" << endl;
+        }
+        break;
+        case 0:
+        {
+            run = 0;
+        }
+        break;
 
-    for_each(sortedBooks.begin(), sortedBooks.end(), &print);
-
-    vector<Book> Library;
-    Library.push_back(Book1);
-    Library.push_back(Book2);
-    Library.push_back(Book3);
-
+        default:
+        {
+            cout << "\nTry again\n"
+                 << endl;
+        }
+        break;
+        }
+    }
     return 0;
 }
