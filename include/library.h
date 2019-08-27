@@ -5,62 +5,22 @@
 
 using namespace std;
 
+#ifndef LIBRARY_H
+#define LIBRARY_H
+
 class Library
 {
 public:
-    vector<Book> setOfBooks;
-    vector<Reader> setOfUsers;
+    int countBookAmount();
+    int amountOfUsers();
 
-    int bookAmount = 0;
-    int usersAmount = 0;
+    void addBook(Book book);
+    void addUser(Reader user);
 
-    int countBookAmount()
-    {
-        return bookAmount;
-    }
-    int amountOfUsers()
-    {
-        return usersAmount;
-    }
+    vector<Book> findAllBooks();
+    vector<Reader> findAllReaders();
 
-    void addBook(Book book)
-    {
-        setOfBooks.push_back(book);
-        bookAmount = bookAmount + 1;
-    }
-    void addUser(Reader user)
-    {
-        setOfUsers.push_back(user);
-        usersAmount = usersAmount + 1;
-    }
-
-    vector<Book> findAllBooks()
-    {
-        return setOfBooks;
-    }
-
-    vector<Reader> findAllReaders()
-    {
-        return setOfUsers;
-    }
-
-    void printAllBooks()
-    {
-        cout << "All books in library:\n"
-             << endl;
-        for (int i = 0; i < countBookAmount(); i++)
-        {
-            cout << setOfBooks[i].getName() << endl;
-        }
-    }
-    void printAllUsers()
-    {
-        cout << "All users in library:\n"
-             << endl;
-
-        for (int i = 0; i < amountOfUsers(); i++)
-        {
-            cout << setOfUsers[i].getName() << endl;
-        }
-    }
+    void printAllBooks();
+    void printAllUsers();
 };
+#endif
